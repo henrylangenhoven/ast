@@ -1,4 +1,4 @@
-name: 🚀 Deploy main branch
+name: 🚀 cPanel Deployment
 
 on:
   push:
@@ -8,21 +8,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Get latest code 🚚
+      - name: 🚚 Checkout Latest Code
         uses: actions/checkout@v4.2.2
 
-      - name: Deploy to cPanel 🚀
+      - name: 🚀 Deploy to cPanel
         id: deploy
-        uses: pinkasey/cpanel-deploy-action@v1.2.0
+        uses: paxha/cpanel-deploy@v4
         with:
-          hostname: 'https://agroskytech.co.za'
-          cpanel_username: '${{ secrets.CPANEL_USERNAME }}'
-          cpanel_token: '${{ secrets.CPANEL_TOKEN }}'
-          repository_root: '/home/agroskyt/repositories/ast'
+          host: 'https://agroskytech.co.za'
+          username: '${{ secrets.CPANEL_USERNAME }}'
+          api_token: '${{ secrets.CPANEL_API_TOKEN }}'
+          remote_path: '/home/agroskyt/repositories/ast'
           branch: main
-          updateRepository: true
 
-      - name: Display Deployment Duration
+      - name: 🕒 Display Deployment Duration
         run: echo "Deployment took ${{ steps.deploy.outputs.duration }} milliseconds"
