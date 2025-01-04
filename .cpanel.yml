@@ -5,3 +5,4 @@ deployment:
     - mkdir -p $DEPLOYPATH
     - /bin/cp index.html $DEPLOYPATH
     - /bin/cp -R test $DEPLOYPATH
+    - /bin/cp -R template_archive $DEPLOYPATH
