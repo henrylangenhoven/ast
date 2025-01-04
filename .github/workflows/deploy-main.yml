@@ -15,6 +15,7 @@ jobs:
           hostname: 'https://agroskytech.co.za/'
           repository_root: '/home/agroskyt/repositories/ast'
           branch: main
+          cpanel_username: '${{ secrets.CPANEL_USERNAME }}'
           cpanel_token: '${{ secrets.CPANEL_TOKEN }}'
       - name: echo deploy-duration
         run: echo "Deployment took ${{ steps.deploy.outputs.duration }} milliseconds"
