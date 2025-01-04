@@ -12,7 +12,7 @@ jobs:
         id: deploy
         uses: pinkasey/cpanel-deploy-action@v1.0.0
         with:
-          hostname: 'https://agroskytech.co.za/'
+          hostname: 'https://agroskytech.co.za'
           repository_root: '/home/agroskyt/repositories/ast'
           branch: main
           cpanel_username: '${{ secrets.CPANEL_USERNAME }}'
