@@ -14,7 +14,7 @@ jobs:
 
       - name: 🚀 Deploy to cPanel
         id: deploy
-        uses: paxha/cpanel-deploy@v4
+        uses: paxha/cpanel-deploy@v4.0
         with:
           host: 'https://agroskytech.co.za'
           username: '${{ secrets.CPANEL_USERNAME }}'
