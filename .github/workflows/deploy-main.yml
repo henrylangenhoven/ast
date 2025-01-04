@@ -22,6 +22,15 @@ jobs:
           remote_path: '/home/agroskyt/repositories/ast'
           branch: main
           deploy: true
+      - name: 🕒 Display Deployment Status
+        run: |
+          if [ "${{ steps.deploy.outcome }}" = "success" ]; then
+            echo "Deployment Status: ✅ Successful" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Deployment Status: ❌ Failed" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: 🕒 Display Deployment Duration
-        run: echo "Deployment took ${{ steps.deploy.outputs.duration }} milliseconds"
+        run: |
+          echo "Deployment took ${{ steps.deploy.outputs.duration }} milliseconds"
+          echo "Deployment took ${{ steps.deploy.outputs.duration }} milliseconds" >> $GITHUB_STEP_SUMMARY
