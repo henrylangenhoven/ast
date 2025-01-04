@@ -1,21 +1,28 @@
-name: 🚀 Deploy website on push
+name: 🚀 Deploy main branch
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Get latest code 🚚
         uses: actions/checkout@v4.2.2
+
       - name: Deploy to cPanel 🚀
         id: deploy
-        uses: pinkasey/cpanel-deploy-action@v1.0.0
+        uses: pinkasey/cpanel-deploy-action@v1.2.0
         with:
           hostname: 'https://agroskytech.co.za'
-          repository_root: '/home/agroskyt/repositories/ast'
-          branch: main
           cpanel_username: '${{ secrets.CPANEL_USERNAME }}'
           cpanel_token: '${{ secrets.CPANEL_TOKEN }}'
-      - name: echo deploy-duration
+          repository_root: '/home/agroskyt/repositories/ast'
+          branch: main
+          updateRepository: true
+
+      - name: Display Deployment Duration
         run: echo "Deployment took ${{ steps.deploy.outputs.duration }} milliseconds"
