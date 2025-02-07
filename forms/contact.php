@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_content .= "Boodskap:\n$message\n";
 
     if (mail($receiving_email_address, "📩 Nuwe Kontakvorm Boodskap: " . $subject, $email_content, $headers)) {
-        echo "success"; // Output 'success' for successful submission
+        echo "success";
     } else {
         echo "Fout: Kon nie jou boodskap stuur nie. Probeer asseblief later weer.";
     }
