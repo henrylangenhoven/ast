@@ -23,43 +23,48 @@ jobs:
           branch: main
           deploy: true
 
+      # ✅ Create a GitHub Deployment
       - name: 🚀 Create GitHub Deployment
         id: create_deployment
-        uses: octokit/request-action@v2.4.0
+        uses: octokit/request-action@v2.x
         with:
-          route: POST /repos/:owner/:repo/deployments
+          route: POST /repos/{owner}/{repo}/deployments
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
           ref: ${{ github.sha }}
-          required_contexts: []
           environment: production
           auto_merge: false
           description: "Deploying to cPanel"
-          payload: '{"url": "https://agroskytech.co.za"}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: ✅ Mark Deployment as Successful
+      # ✅ Mark Deployment as Successful
+      - name: ✅ Update Deployment Status (Success)
         if: success()
-        uses: octokit/request-action@v2.4.0
+        uses: octokit/request-action@v2.x
+        id: mark_success
         with:
-          route: POST /repos/:owner/:repo/deployments/:deployment_id/statuses
+          route: POST /repos/{owner}/{repo}/deployments/{deployment_id}/statuses
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
-          deployment_id: ${{ steps.create_deployment.outputs.id }}
+          deployment_id: ${{ fromJson(steps.create_deployment.outputs.data).id }}
           state: success
           environment_url: "https://agroskytech.co.za"
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: ❌ Mark Deployment as Failed (if needed)
+      # ❌ Mark Deployment as Failed (If Needed)
+      - name: ❌ Update Deployment Status (Failure)
         if: failure()
-        uses: octokit/request-action@v2.4.0
+        uses: octokit/request-action@v2.x
+        id: mark_failed
         with:
-          route: POST /repos/:owner/:repo/deployments/:deployment_id/statuses
+          route: POST /repos/{owner}/{repo}/deployments/{deployment_id}/statuses
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
-          deployment_id: ${{ steps.create_deployment.outputs.id }}
+          deployment_id: ${{ fromJson(steps.create_deployment.outputs.data).id }}
           state: failure
+          log_url: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
