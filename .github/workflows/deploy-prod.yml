@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEPLOY_URL: 'https://agroskytech.co.za'
-      DEPLOY_PATH: '/home/agroskyt/public_html'
+      DEPLOY_PATH: '/home/agroskyt/public_html/'
       ENVIRONMENT: 'production'
 
     steps:
