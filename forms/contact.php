@@ -22,15 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $headers .= "Reply-To: $email" . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8" . "\r\n";
 
-    // ✅ Voeg 'n duidelike aanduiding in dat dit 'n boodskap van die webvorm is
-    $email_content = "📩 *Hierdie boodskap is gestuur vanaf die \"Kontak Ons\" webvorm op AgroSkyTech.co.za.*\n\n";
+    $email_content = "📩 *Nuwe boodskap gestuur vanaf die \"Kontak Ons\" webvorm op AgroSkyTech.co.za.*\n\n";
     $email_content .= "Naam: $name\n";
     $email_content .= "E-pos: $email\n";
     $email_content .= "Onderwerp: $subject\n\n";
     $email_content .= "Boodskap:\n$message\n";
 
     if (mail($receiving_email_address, "📩 Nuwe Kontakvorm Boodskap: " . $subject, $email_content, $headers)) {
-        echo "Jou boodskap is suksesvol gestuur!";
+        echo "success"; // Output 'success' for successful submission
     } else {
         echo "Fout: Kon nie jou boodskap stuur nie. Probeer asseblief later weer.";
     }
