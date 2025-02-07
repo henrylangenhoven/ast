@@ -3,16 +3,22 @@ name: 🚀 cPanel Deployment
 on:
   push:
     branches:
+      - test
       - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_URL: ${{ github.ref == 'refs/heads/main' && 'https://agroskytech.co.za' || 'https://test.agroskytech.co.za' }}
+      DEPLOY_PATH: ${{ github.ref == 'refs/heads/main' && '/public_html' || '/public_html/test.agroskytech.co.za' }}
+      ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'production' || 'test' }}
+
     steps:
       - name: 🚚 Checkout Latest Code
         uses: actions/checkout@v4.2.2
 
-      - name: 🚀 Deploy to cPanel
+      - name: 🚀 Deploy to cPanel (${{ env.ENVIRONMENT }})
         id: deploy
         uses: paxha/cpanel-deploy@v4.0
         with:
@@ -20,11 +26,11 @@ jobs:
           username: '${{ secrets.CPANEL_USERNAME }}'
           api_token: '${{ secrets.CPANEL_TOKEN }}'
           remote_path: '/home/agroskyt/repositories/ast'
-          branch: main
+          branch: ${{ github.ref_name }}
           deploy: true
 
-      # ✅ Create GitHub Deployment (Using cURL)
-      - name: 🚀 Register Deployment in GitHub
+      # ✅ Register Deployment in GitHub (Tracks Separate Environments)
+      - name: 🚀 Create GitHub Deployment (${{ env.ENVIRONMENT }})
         id: create_deployment
         run: |
           RESPONSE=$(curl -s -X POST -H "Authorization: token ${{ secrets.DEPLOYMENT_TOKEN }}" \
@@ -32,8 +38,8 @@ jobs:
           https://api.github.com/repos/${{ github.repository }}/deployments \
           -d '{
             "ref": "${{ github.sha }}",
-            "environment": "production",
-            "description": "Deploying to cPanel",
+            "environment": "${{ env.ENVIRONMENT }}",
+            "description": "Deploying to ${{ env.ENVIRONMENT }}",
             "auto_merge": false,
             "required_contexts": []
           }')
@@ -57,7 +63,7 @@ jobs:
           https://api.github.com/repos/${{ github.repository }}/deployments/${{ env.deployment_id }}/statuses \
           -d '{
             "state": "success",
-            "environment_url": "https://agroskytech.co.za",
+            "environment_url": "${{ env.DEPLOY_URL }}",
             "log_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           }'
 
