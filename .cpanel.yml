@@ -6,4 +6,3 @@ deployment:
     - /bin/cp index.html $DEPLOYPATH
     - /bin/cp -R assets $DEPLOYPATH
     - /bin/cp -R test $DEPLOYPATH
-    - /bin/cp -R template_archive $DEPLOYPATH
