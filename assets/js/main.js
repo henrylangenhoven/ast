@@ -224,6 +224,7 @@
         let form = this;
         let formData = new FormData(form);
 
+        // Clear previous messages
         form.querySelector('.loading').classList.add('d-block');
         form.querySelector('.error-message').classList.remove('d-block');
         form.querySelector('.sent-message').classList.remove('d-block');
@@ -235,18 +236,21 @@
             .then(response => response.text())
             .then(data => {
                 form.querySelector('.loading').classList.remove('d-block');
+
                 if (data.trim() === 'success') {
+                    // Show success message
                     form.querySelector('.sent-message').classList.add('d-block');
-                    form.reset();
                 } else {
-                    form.querySelector('.error-message').innerHTML = data;
+                    // Show error message with response
+                    form.querySelector('.error-message').textContent = data;
                     form.querySelector('.error-message').classList.add('d-block');
                 }
             })
             .catch(error => {
                 form.querySelector('.loading').classList.remove('d-block');
-                form.querySelector('.error-message').innerHTML = "Fout: Kon nie die vorm verwerk nie. Probeer asseblief later weer.";
+                form.querySelector('.error-message').textContent = "Fout: Kon nie die vorm verwerk nie. Probeer asseblief later weer.";
                 form.querySelector('.error-message').classList.add('d-block');
             });
     });
+    ;
 })();
