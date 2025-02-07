@@ -249,6 +249,7 @@
                 }
             })
             .catch(error => {
+                alert('Error: ' + error);
                 form.querySelector('.loading').classList.remove('d-block');
                 form.querySelector('.error-message').innerHTML = "Fout: Kon nie die vorm verwerk nie. Probeer asseblief later weer.";
                 form.querySelector('.error-message').classList.add('d-block');
