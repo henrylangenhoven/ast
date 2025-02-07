@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - export DEPLOY_PATH=/home/agroskyt/public_html/
+    - mkdir -p $DEPLOY_PATH
+    - /bin/cp .htaccess $DEPLOY_PATH
+    - /bin/cp 404.html $DEPLOY_PATH
+    - /bin/cp -R assets $DEPLOY_PATH
+    - /bin/cp index.html $DEPLOY_PATH

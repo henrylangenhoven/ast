@@ -1,22 +1,28 @@
-name: 🚀 cPanel Deployment
+name: 🧪🚀 Test Deployment
 
 on:
   push:
     branches:
-      - test
       - main
+    paths:
+      - 'test/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      DEPLOY_URL: ${{ github.ref == 'refs/heads/main' && 'https://agroskytech.co.za' || 'https://test.agroskytech.co.za' }}
-      DEPLOY_PATH: ${{ github.ref == 'refs/heads/main' && '/public_html' || '/public_html/test.agroskytech.co.za' }}
-      ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'production' || 'test' }}
+      DEPLOY_URL: 'https://test.agroskytech.co.za'
+      DEPLOY_PATH: '/home/agroskyt/public_html/test.agroskytech.co.za/'
+      ENVIRONMENT: 'test'
 
     steps:
       - name: 🚚 Checkout Latest Code
         uses: actions/checkout@v4.2.2
+
+      - name: 🛠️ Use the Correct .cpanel.yml for Environment
+        run: |
+          cp .cpanel.test.yml .cpanel.yml
+        shell: bash
 
       - name: 🚀 Deploy to cPanel (${{ env.ENVIRONMENT }})
         id: deploy
@@ -25,11 +31,11 @@ jobs:
           host: 'https://agroskytech.co.za'
           username: '${{ secrets.CPANEL_USERNAME }}'
           api_token: '${{ secrets.CPANEL_TOKEN }}'
-          remote_path: '/home/agroskyt/repositories/ast'
+          remote_path: ${{ env.DEPLOY_PATH }}
           branch: ${{ github.ref_name }}
           deploy: true
 
-      # ✅ Register Deployment in GitHub (Tracks Separate Environments)
+      # ✅ Register Deployment in GitHub
       - name: 🚀 Create GitHub Deployment (${{ env.ENVIRONMENT }})
         id: create_deployment
         run: |

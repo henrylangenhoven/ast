@@ -1,0 +1,86 @@
+name: 🚀 Production Deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'test/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_URL: 'https://agroskytech.co.za'
+      DEPLOY_PATH: '/home/agroskyt/public_html/'
+      ENVIRONMENT: 'production'
+
+    steps:
+      - name: 🚚 Checkout Latest Code
+        uses: actions/checkout@v4.2.2
+
+      - name: 🛠️ Use the Correct .cpanel.yml for Environment
+        run: |
+          cp .cpanel.production.yml .cpanel.yml
+        shell: bash
+
+      - name: 🚀 Deploy to cPanel (${{ env.ENVIRONMENT }})
+        id: deploy
+        uses: paxha/cpanel-deploy@v4.0
+        with:
+          host: 'https://agroskytech.co.za'
+          username: '${{ secrets.CPANEL_USERNAME }}'
+          api_token: '${{ secrets.CPANEL_TOKEN }}'
+          remote_path: ${{ env.DEPLOY_PATH }}
+          branch: ${{ github.ref_name }}
+          deploy: true
+
+      # ✅ Register Deployment in GitHub
+      - name: 🚀 Create GitHub Deployment (${{ env.ENVIRONMENT }})
+        id: create_deployment
+        run: |
+          RESPONSE=$(curl -s -X POST -H "Authorization: token ${{ secrets.DEPLOYMENT_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/deployments \
+          -d '{
+            "ref": "${{ github.sha }}",
+            "environment": "${{ env.ENVIRONMENT }}",
+            "description": "Deploying to ${{ env.ENVIRONMENT }}",
+            "auto_merge": false,
+            "required_contexts": []
+          }')
+
+          DEPLOYMENT_ID=$(echo $RESPONSE | jq -r .id)
+
+          if [ "$DEPLOYMENT_ID" = "null" ]; then
+            echo "Error creating deployment: $RESPONSE"
+            exit 1
+          fi
+
+          echo "Deployment ID: $DEPLOYMENT_ID"
+          echo "deployment_id=$DEPLOYMENT_ID" >> $GITHUB_ENV
+
+      # ✅ Mark Deployment as Successful
+      - name: ✅ Update Deployment Status (Success)
+        if: success()
+        run: |
+          curl -X POST -H "Authorization: token ${{ secrets.DEPLOYMENT_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/deployments/${{ env.deployment_id }}/statuses \
+          -d '{
+            "state": "success",
+            "environment_url": "${{ env.DEPLOY_URL }}",
+            "log_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'
+
+      # ❌ Mark Deployment as Failed (if needed)
+      - name: ❌ Update Deployment Status (Failure)
+        if: failure()
+        run: |
+          curl -X POST -H "Authorization: token ${{ secrets.DEPLOYMENT_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/deployments/${{ env.deployment_id }}/statuses \
+          -d '{
+            "state": "failure",
+            "log_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'
