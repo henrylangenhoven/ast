@@ -237,7 +237,12 @@
                 form.querySelector('.loading').classList.remove('d-block');
                 if (data.trim() === 'success') {
                     form.querySelector('.sent-message').classList.add('d-block');
-                    form.reset();
+                    form.querySelector('.loading').classList.remove('d-block');
+                    form.querySelector('.error-message').classList.remove('d-block');
+                    setTimeout(() => {
+                        form.querySelector('.sent-message').classList.remove('d-block');
+                        form.reset();
+                    }, 5000);
                 } else {
                     form.querySelector('.error-message').innerHTML = data;
                     form.querySelector('.error-message').classList.add('d-block');
