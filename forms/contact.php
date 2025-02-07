@@ -18,11 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $headers = "From: $name <$email>" . "\r\n";
+    $headers = "From: Agro Sky Tech <no-reply@agroskytech.co.za>" . "\r\n";
     $headers .= "Reply-To: $email" . "\r\n";
+    $headers .= "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8" . "\r\n";
 
-    $email_content = "📩 *Nuwe boodskap gestuur vanaf die \"Kontak Ons\" webvorm op AgroSkyTech.co.za.*\n\n";
+    $email_content = "📩 Nuwe boodskap gestuur vanaf die \"Kontak Ons\" webvorm op AgroSkyTech.co.za.\n\n";
     $email_content .= "Naam: $name\n";
     $email_content .= "E-pos: $email\n";
     $email_content .= "Onderwerp: $subject\n\n";
