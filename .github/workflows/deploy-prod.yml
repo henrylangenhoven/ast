@@ -22,7 +22,6 @@ jobs:
       - name: 🛠️ Use the Correct .cpanel.yml for Environment
         run: |
           cp .cpanel.production.yml .cpanel.yml
-          chmod +r .cpanel.yml
         shell: bash
 
       - name: 🚀 Deploy to cPanel (${{ env.ENVIRONMENT }})
