@@ -1,0 +1,18 @@
+.logo-container {
+  width: 100%;
+  max-width: 200px; /* Beperk die breedte van die logo */
+  height: 120px; /* Stel 'n vaste hoogte */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #fff; /* Opsioneel: voeg 'n agtergrondkleur by vir uniformiteit */
+  border-radius: 10px; /* Opsioneel: rond die hoeke af */
+}
+
+.logo-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Sorg dat die logo in proporsie bly */
+  padding: 10px; /* Voeg 'n klein spasie om die logo */
+}
