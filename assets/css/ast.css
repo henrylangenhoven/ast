@@ -1,18 +1,22 @@
 .logo-container {
-  width: 100%;
-  max-width: 200px; /* Beperk die breedte van die logo */
-  height: 120px; /* Stel 'n vaste hoogte */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  background-color: #fff; /* Opsioneel: voeg 'n agtergrondkleur by vir uniformiteit */
-  border-radius: 10px; /* Opsioneel: rond die hoeke af */
+  width: 100%;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease; /* Smooth hover effect */
 }
 
 .logo-container img {
+  padding: 10px; /* Optional: add some padding around the logo */
   max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* Sorg dat die logo in proporsie bly */
-  padding: 10px; /* Voeg 'n klein spasie om die logo */
+  max-height: 200px; /* Limit logo height for uniformity */
+  object-fit: contain;
+  transition: transform 0.3s ease; /* Smooth scaling on hover */
+}
+
+.logo-container:hover img {
+  transform: scale(1.1); /* Slightly enlarge the logo */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow */
 }
