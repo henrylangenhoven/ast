@@ -12,13 +12,14 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Raleway",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --heading-font: 'Raleway', sans-serif;
+  --nav-font: 'Poppins', sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #555555; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #222222; /* Color for headings, subheadings and title throughout the website */
@@ -29,7 +30,7 @@
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #555555;  /* The default color of the main navmenu links */
+  --nav-color: #555555; /* The default color of the main navmenu links */
   --nav-hover-color: #5cb874; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
@@ -107,7 +108,7 @@ h6 {
 }
 
 .pulsating-play-btn:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 120px;
   height: 120px;
@@ -125,7 +126,7 @@ h6 {
 }
 
 .pulsating-play-btn:after {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
@@ -140,7 +141,7 @@ h6 {
 }
 
 .pulsating-play-btn:hover:before {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
@@ -204,7 +205,7 @@ h6 {
 }
 
 .php-email-form .loading:before {
-  content: "";
+  content: '';
   display: inline-block;
   border-radius: 50%;
   width: 24px;
@@ -255,7 +256,6 @@ h6 {
 }
 
 @media (max-width: 575px) {
-
   .header .topbar .contact-info i a,
   .header .topbar .contact-info i span {
     font-size: 13px;
@@ -356,7 +356,7 @@ h6 {
     padding-right: 0;
   }
 
-  .navmenu li:hover>a,
+  .navmenu li:hover > a,
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-hover-color);
@@ -395,11 +395,11 @@ h6 {
 
   .navmenu .dropdown ul a:hover,
   .navmenu .dropdown ul .active:hover,
-  .navmenu .dropdown ul li:hover>a {
+  .navmenu .dropdown ul li:hover > a {
     color: var(--nav-dropdown-hover-color);
   }
 
-  .navmenu .dropdown:hover>ul {
+  .navmenu .dropdown:hover > ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
@@ -411,7 +411,7 @@ h6 {
     visibility: hidden;
   }
 
-  .navmenu .dropdown .dropdown:hover>ul {
+  .navmenu .dropdown .dropdown:hover > ul {
     opacity: 1;
     top: 0;
     left: -100%;
@@ -514,7 +514,7 @@ h6 {
     background-color: rgba(33, 37, 41, 0.1);
   }
 
-  .navmenu .dropdown>.dropdown-active {
+  .navmenu .dropdown > .dropdown-active {
     display: block;
     background-color: rgba(33, 37, 41, 0.03);
   }
@@ -541,7 +541,7 @@ h6 {
     transition: 0.3s;
   }
 
-  .mobile-nav-active .navmenu>ul {
+  .mobile-nav-active .navmenu > ul {
     display: block;
   }
 }
@@ -679,7 +679,7 @@ h6 {
 }
 
 #preloader:before {
-  content: "";
+  content: '';
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
@@ -776,12 +776,12 @@ h6 {
   font-weight: 600;
 }
 
-.page-title nav ol li+li {
+.page-title nav ol li + li {
   padding-left: 10px;
 }
 
-.page-title nav ol li+li::before {
-  content: "/";
+.page-title nav ol li + li::before {
+  content: '/';
   display: inline-block;
   padding-right: 10px;
   color: color-mix(in srgb, var(--default-color), transparent 70%);
@@ -800,7 +800,6 @@ section,
 }
 
 @media (max-width: 1199px) {
-
   section,
   .section {
     scroll-margin-top: 100px;
@@ -825,7 +824,7 @@ section,
 }
 
 .section-title h2:before {
-  content: "";
+  content: '';
   position: absolute;
   display: block;
   width: 160px;
@@ -838,7 +837,7 @@ section,
 }
 
 .section-title h2::after {
-  content: "";
+  content: '';
   position: absolute;
   display: block;
   width: 60px;
@@ -890,7 +889,7 @@ section,
 }
 
 .hero .carousel-item:before {
-  content: "";
+  content: '';
   background: color-mix(in srgb, var(--background-color), transparent 30%);
   position: absolute;
   inset: 0;
@@ -925,7 +924,6 @@ section,
 }
 
 @media (min-width: 1024px) {
-
   .hero h2,
   .hero p {
     max-width: 60%;
@@ -969,7 +967,6 @@ section,
 }
 
 @media (min-width: 1024px) {
-
   .hero .carousel-control-prev,
   .hero .carousel-control-next {
     width: 5%;
@@ -1499,8 +1496,8 @@ section,
   }
 }
 
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email],
+.contact .php-email-form input[type='text'],
+.contact .php-email-form input[type='email'],
 .contact .php-email-form textarea {
   font-size: 14px;
   padding: 10px 15px;
@@ -1511,19 +1508,19 @@ section,
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.contact .php-email-form input[type=text]:focus,
-.contact .php-email-form input[type=email]:focus,
+.contact .php-email-form input[type='text']:focus,
+.contact .php-email-form input[type='email']:focus,
 .contact .php-email-form textarea:focus {
   border-color: var(--accent-color);
 }
 
-.contact .php-email-form input[type=text]::placeholder,
-.contact .php-email-form input[type=email]::placeholder,
+.contact .php-email-form input[type='text']::placeholder,
+.contact .php-email-form input[type='email']::placeholder,
 .contact .php-email-form textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
-.contact .php-email-form button[type=submit] {
+.contact .php-email-form button[type='submit'] {
   color: var(--contrast-color);
   background: var(--accent-color);
   border: 0;
@@ -1532,7 +1529,7 @@ section,
   border-radius: 50px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.contact .php-email-form button[type='submit']:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 25%);
 }
 
@@ -1573,7 +1570,6 @@ section,
 }
 
 @media (max-width: 575px) {
-
   .portfolio-details .swiper-button-prev,
   .portfolio-details .swiper-button-next {
     display: none;
@@ -1605,7 +1601,7 @@ section,
 }
 
 .portfolio-details .portfolio-info h3:after {
-  content: "";
+  content: '';
   position: absolute;
   display: block;
   width: 50px;
@@ -1720,7 +1716,7 @@ section,
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
 }
 
-.service-details .service-box+.service-box {
+.service-details .service-box + .service-box {
   margin-top: 30px;
 }
 
