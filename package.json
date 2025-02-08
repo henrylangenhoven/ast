@@ -1,0 +1,12 @@
+{
+  "name": "Agro Sky Tech",
+  "version": "0.0.0",
+  "scripts": {
+    "format:check": "npx prettier . --check",
+    "format:write": "npx prettier . --write"
+  },
+  "private": true,
+  "dependencies": {
+    "prettier": "^3.4.2"
+  }
+}
